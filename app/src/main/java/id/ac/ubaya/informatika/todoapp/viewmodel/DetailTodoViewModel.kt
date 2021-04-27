@@ -18,7 +18,7 @@ class DetailTodoViewModel(application: Application)
         launch {
             val db = Room.databaseBuilder(
                 getApplication(), TodoDatabase::class.java,
-                "newtododb").build()
+                "tododb").build()
             db.todoDao().insertAll(*list.toTypedArray())
         }
     }

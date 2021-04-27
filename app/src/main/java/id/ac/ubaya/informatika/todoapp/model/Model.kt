@@ -1,7 +1,10 @@
 package id.ac.ubaya.informatika.todoapp.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-    @Entity
+@Entity
     data class Todo(
         @ColumnInfo(name="title")
         var title:String,

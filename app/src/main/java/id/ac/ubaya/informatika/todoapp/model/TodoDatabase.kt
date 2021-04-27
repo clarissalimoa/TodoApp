@@ -16,7 +16,7 @@ import androidx.room.RoomDatabase
                 Room.databaseBuilder(
                     context.applicationContext,
                     TodoDatabase::class.java,
-                    "newtododb").build()
+                    "tododb").build()
 
             operator fun invoke(context:Context) {
                 if(instance!=null) {
