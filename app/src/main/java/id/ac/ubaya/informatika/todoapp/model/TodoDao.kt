@@ -20,7 +20,7 @@ import androidx.room.*
                 " WHERE uuid = :id")
         suspend fun update(title:String, notes:String, priority:Int, id:Int)
 
-        @Query("UPDATE todo SET is_done=:is_done" +
+        @Query("UPDATE todo SET is_done=1" +
                 " WHERE uuid = :id")
         suspend fun done(id:Int)
 
