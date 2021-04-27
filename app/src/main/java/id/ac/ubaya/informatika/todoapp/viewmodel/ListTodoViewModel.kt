@@ -7,6 +7,7 @@ import androidx.room.Room
 import id.ac.ubaya.informatika.todoapp.model.Todo
 import id.ac.ubaya.informatika.todoapp.model.TodoDao
 import id.ac.ubaya.informatika.todoapp.model.TodoDatabase
+import id.ac.ubaya.informatika.todoapp.util.buildDb
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -25,21 +26,24 @@ class ListTodoViewModel(application: Application)
         loadingLD.value = true
         todoLoadErrorLD.value = false
         launch {
-            val db = Room.databaseBuilder(
-                getApplication(),
-                TodoDatabase::class.java, "tododb").build()
-
-            todoLD.value = db.todoDao().selectAllTodo()
+            val db = buildDb(getApplication())
+            todoLD.value = db.todoDao().selectAllUndoneTodo()
         }
     }
 
     fun clearTask(todo: Todo) {
         launch {
-            val db = Room.databaseBuilder(
-                getApplication(),
-                TodoDatabase::class.java, "tododb").build()
+            val db = buildDb(getApplication())
             db.todoDao().deleteTodo(todo)
-            todoLD.value = db.todoDao().selectAllTodo()
+            todoLD.value = db.todoDao().selectAllUndoneTodo()
+        }
+    }
+
+    fun done(todo: Todo) {
+        launch {
+            val db = buildDb(getApplication())
+            db.todoDao().done(todo.uuid)
+            todoLD.value = db.todoDao().selectAllUndoneTodo()
         }
     }
 
